@@ -1,14 +1,19 @@
-import { ctx, canvas, initcanvas } from './canvas-ctx';
-import { Brick } from './game-objects/brick';
-import './style.css'
+import "./style.css";
+import { ctx, canvas, initCanvas } from "./canvas-ctx";
+import { GameManger } from "./game-manger";
 
-initcanvas();
+initCanvas();
 
-//ctx.fillStyle = "purple";
-//ctx.fillRect(0, 0, canvas.width, canvas.height);
+let gm = new GameManger(ctx, canvas);
 
-let brick = new Brick(ctx, canvas.width / 2, canvas.height / 2)
+function GameLoop(timestamp: number) {
+    gm.update(timestamp);
+    gm.draw();
 
-brick.draw();
 
+    //stay LAST!!!!!!!!!!!!!!!!!!!!
+    requestAnimationFrame(GameLoop);
+}
+
+requestAnimationFrame(GameLoop);
 

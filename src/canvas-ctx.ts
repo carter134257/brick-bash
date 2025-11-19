@@ -1,20 +1,18 @@
-export let canvas = document.querySelector<HTMLCanvasElement>("#main-game")!;
-export let ctx = canvas.getContext("2d")!;
+let canvas = document.querySelector<HTMLCanvasElement>("#main-game")!;
+let ctx = canvas.getContext("2d")!;
 
-export function initcanvas() {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    window.addEventListener("resize", onresize);
-
+function initCanvas() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	window.addEventListener("resize", onResize);
 }
 
-function onresize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function onResize() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
 
-  console.log("resize window", canvas.width, canvas.height);
-};
+	console.log("Resized window", canvas.width, canvas.height);
+}
 
-
+export { canvas, ctx, initCanvas };
 
