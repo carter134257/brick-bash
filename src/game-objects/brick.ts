@@ -5,8 +5,7 @@ export class Brick {
   //ctx: CanvasRenderingContext2D;
   size: number = BRICK_SIZE;
 
-  
-
+  highlightColor: null | string = null;
 
   constructor(
     private readonly ctx: CanvasRenderingContext2D,
@@ -76,7 +75,6 @@ export class Brick {
     //ctx.stroke();
     ctx.fill();
   }
-  
 
   public isPointOver(point: Point): boolean {
     const { ctx, x, y, size } = this;
@@ -84,13 +82,15 @@ export class Brick {
     path.rect(x, y, size, size);
     const isInPath = ctx.isPointInPath(path, point.x, point.y);
     return isInPath;
-    
-
-
-
   }
 
+  public center(): Point {
+    let c = new Point(this.x + this.size / 2, this.y + this.size / 2);
+    return c;
+  }
 
+  public isOtherOver(brick: Brick): boolean {
+    let isOver = this.isPointOver(brick.center());
+    return isOver;
+  }
 }
-
-
