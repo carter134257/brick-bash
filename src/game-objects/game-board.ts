@@ -1,10 +1,11 @@
 import { BOARD_COLOR, BRICK_SIZE } from "../constants";
 import { Brick } from "./brick";
+import type { BrickSet } from "./brick-set";
 
 export class GameBoard {
 	color: string = BOARD_COLOR;
 	rows: number = 8;
-	cols: number = 8;
+	cols: number = 10;
 	private readonly x: number;
 	private cells: Array<Brick> = [];
 
@@ -35,5 +36,36 @@ export class GameBoard {
 		this.cells.forEach((c) => {
 			c.draw();
 		});
+	}
+
+
+	public highlightBrickset(brickSet: BrickSet) : void {
+		const {cells} = this;
+		let bricksOverBoard = 0;
+
+		cells.forEach(ce => {
+			ce.highlightColor = null;
+			brickSet.bricks.forEach(br => {
+				if(br.isOtherOver(ce)){
+					bricksOverBoard++;
+				}
+
+			})
+		})
+
+
+		if(bricksOverBoard === brickSet.bricks.length){
+			cells.forEach(ce => {
+			ce.highlightColor = null;
+			brickSet.bricks.forEach(br => {
+				if(br.isOtherOver(ce)){
+					ce.highlightColor = br.color;
+				}
+
+			})
+		 })
+		}
+
+		
 	}
 }

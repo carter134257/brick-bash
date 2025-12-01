@@ -29,7 +29,8 @@ export class GameManger {
 
   public draw(): void {
     const { board, slotBeta, slotAlpha, slotCharlie, ctx, canvas } = this;
-
+    
+    //commit out = fun
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     board.draw();
@@ -46,13 +47,14 @@ export class GameManger {
     if (this.selectedslot) {
       document.body.style.cursor = "none";
       this.selectedslot.move(this.mousePosition);
+      this.board.highlightBrickset(this.selectedslot.brickSet)
     }
 
     if (
       !this.selectedslot &&
       slots.some((s) => s.ispountover(this.mousePosition))
     ) {
-      document.body.style.cursor = "all-scroll";
+      document.body.style.cursor = "alias";
     }
   }
 
