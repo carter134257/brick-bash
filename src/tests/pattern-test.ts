@@ -1,5 +1,5 @@
 import { canvas, ctx } from "../canvas-ctx";
-import { patternSets } from "../pattern-set";
+import { patternSets } from "../pattern-sets";
 import { Brick } from "../game-objects/brick";
 import { BRICK_SIZE, BOARD_COLOR } from "../constants";
 import "../style.css";
@@ -19,12 +19,6 @@ let numberOfRows = Math.ceil(patternSets.length / numberOfGridsPerRow);
 // we have to draw
 canvas.width = width;
 canvas.height = numberOfRows * gridPositions * BRICK_SIZE + BRICK_SIZE;
-
-console.log(
-	numberOfGridsPerRow,
-	numberOfRows,
-	numberOfGridsPerRow * gridPositions
-);
 
 let x = BRICK_SIZE;
 let y = BRICK_SIZE;
@@ -77,5 +71,3 @@ function drawEmptyGrid(x: number, y: number) {
 		}
 	}
 }
-
-

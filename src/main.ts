@@ -1,19 +1,21 @@
 import "./style.css";
 import { ctx, canvas, initCanvas } from "./canvas-ctx";
-import { GameManger } from "./game-manger";
+import { GameManager } from "./game-manager";
 
 initCanvas();
 
-let gm = new GameManger(ctx, canvas);
+let gm = new GameManager(ctx, canvas);
+let lastTimestamp = 0;
 
-function GameLoop(timestamp: number) {
-    gm.update(timestamp);
-    gm.draw();
+function gameLoop(timestamp: number) {
+	let elapsedTime = timestamp - lastTimestamp;
+	lastTimestamp = timestamp;
 
+	gm.update(elapsedTime);
+	gm.draw();
 
-    //stay LAST!!!!!!!!!!!!!!!!!!!!
-    requestAnimationFrame(GameLoop);
+	// make sure this stays as the last thing
+	requestAnimationFrame(gameLoop);
 }
 
-requestAnimationFrame(GameLoop);
-
+requestAnimationFrame(gameLoop);
