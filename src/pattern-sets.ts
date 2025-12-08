@@ -34,11 +34,7 @@ export let patternSets: Array<Array<number>> = [
 	[1, 5, 9, 10, 11],
 
 	
-
-	[1, 2, 3, 5, 6, 7],
-	[1, 2, 5, 6, 9, 10],
-
-	[1, 2, 3]
+	
 
 	
 

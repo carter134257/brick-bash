@@ -48,7 +48,7 @@ export class BrickSet {
 	}
 
 	protected setColor(): void {
-		const colors: Array<string> = ["red", "orange", "green", "blue", "purple"];
+		const colors: Array<string> = ["red", "green", "steelblue", "purple"];
 
 		let rand = Math.floor(Math.random() * colors.length);
 
