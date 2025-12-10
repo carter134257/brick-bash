@@ -4,10 +4,10 @@ import { getCookie, setCookie } from "typescript-cookie";
 const MAX_SCORE_COOKIE: string = "max-score";
 
 export class ScoreBoard {
-  //hack
+  
 	private currentScore: number = 0;
 	private maxScore: number = 0;
-  //hack
+  
 	constructor(
 		private readonly ctx: CanvasRenderingContext2D,
 		private x: number,

@@ -172,4 +172,10 @@ export class GameManager {
 			window.dispatchEvent(event);
 		}
 	}
+
+	
+
+
+
+
 }
