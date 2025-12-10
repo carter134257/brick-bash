@@ -22,7 +22,7 @@ body {
 
 
 body {
-  background: linear-gradient(132deg, #000000,#00ff00, #0000ff,#ff0000,#ffffff);
+  background: linear-gradient(132deg, #000000,#007b00,#32CD32,#2AAA8A,#96DED1,#ffffff);
   background-size: 400% 400%;
   animation: BackgroundGradient 15s ease infinite;
 }
