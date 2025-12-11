@@ -21,7 +21,7 @@ export class BrickScore {
 	) {}
 
 	public total(): number {
-		return this.bricks * 10 + (this.rows + this.cols) * 10;
+		return this.bricks * 10 + (this.rows + this.cols) * 40;
 	}
 }
 

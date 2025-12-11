@@ -32,7 +32,7 @@ export class ScoreBoard {
 
 		ctx.font = "30px Science Gothic";
 		ctx.textAlign = "center";
-		ctx.fillStyle = "lime";
+		ctx.fillStyle = "gray";
 
 		ctx.fillText(currentScore.toLocaleString(), currentScoreX, currentScoreY);
 
