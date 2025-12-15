@@ -4,11 +4,13 @@ import { GameBoard } from "./game-objects/game-board";
 import { PatternSlot } from "./game-objects/pattern-slot";
 import { Point } from "./game-objects/point";
 import { ScoreBoard } from "./game-objects/score-board";
+import { GameOverScene } from "./scenes/game-over-scene";
 
 
 export class GameManager {
-	private board: GameBoard;
-	private scoreBoard: ScoreBoard;
+	private board!: GameBoard;
+	private scoreBoard!: ScoreBoard;
+	private gameOverScene: GameOverScene;
 
 	private boardPadding = {
 		top: 100,
@@ -29,21 +31,39 @@ export class GameManager {
 		private readonly canvas: HTMLCanvasElement
 	) {
 		this.wireUpEvents();
-		this,this.scoreBoard = new ScoreBoard(ctx, 0, 0, canvas.width, this.boardPadding.top)
+		this.initGame();
 
-		this.board = new GameBoard(ctx, canvas.width / 2, this.boardPadding.top
+		this.gameOverScene = new GameOverScene(ctx, canvas);
+	}
 
+	private initGame(): void {
+		this.scoreBoard = new ScoreBoard(
+			this.ctx,
+			0,
+			0,
+			this.canvas.width,
+			this.boardPadding.top
 		);
-
-
+		this.board = new GameBoard(
+			this.ctx,
+			this.canvas.width / 2,
+			this.boardPadding.top
+		);
 		this.initSlots();
 	}
 
 	public draw(): void {
-		const { scoreBoard, board, slotAlpha, slotBeta, slotCharlie, ctx, canvas } = this;
+		const { scoreBoard, board, slotAlpha, slotBeta, slotCharlie, ctx, canvas } =
+			this;
 
 		// clear the canvas
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		if (this.isGameOver) {
+			this.gameOverScene.draw();
+			return;
+		}
+
 		scoreBoard.draw();
 		board.draw();
 		slotAlpha.brickSet?.draw();
@@ -54,7 +74,7 @@ export class GameManager {
 	}
 
 	public update(elapsedTime: number): void {
-		document.body.style.cursor = "cell";
+		document.body.style.cursor = "default";
 
 		if (this.isGameOver) {
 			return;
@@ -76,7 +96,7 @@ export class GameManager {
 			selectedSlot === null &&
 			slots.some((s) => s.isPointOver(mousePosition))
 		) {
-			document.body.style.cursor = "cell";
+			document.body.style.cursor = "grab";
 		}
 
 		// if all slots have been placed, generate new brick sets
@@ -92,7 +112,7 @@ export class GameManager {
 
 	private initSlots() {
 		const y = this.boardPadding.top + BRICK_SIZE * 8 + this.boardPadding.bottom;
-		
+
 		let pointBeta = new Point(this.canvas.width / 1.8 - BRICK_SIZE * 2, y);
 		let pointAlpha = new Point(pointBeta.x - BRICK_SIZE * 5, y);
 		let pointCharlie = new Point(pointBeta.x + BRICK_SIZE * 5, y);
@@ -108,6 +128,9 @@ export class GameManager {
 
 		this.onClick = this.onClick.bind(this);
 		document.addEventListener("click", this.onClick);
+
+		this.onGameReset = this.onGameReset.bind(this);
+		window.addEventListener("bb-game-reset", this.onGameReset);
 	}
 
 	private onMouseMove(event: MouseEvent): void {
@@ -150,6 +173,11 @@ export class GameManager {
 		});
 	}
 
+	private onGameReset(): void {
+		this.isGameOver = false;
+		this.initGame();
+	}
+
 	private checkForGameOver(): void {
 		// check our remaining slots with brick sets to see if we can place at least one
 		const slotsWithSets = [
@@ -165,17 +193,10 @@ export class GameManager {
 			this.isGameOver = !canPlaceRemainingSlots;
 		}
 
-		console.log("Game over?", this.isGameOver);
-
 		if (this.isGameOver) {
+			this.gameOverScene.updateScores(this.scoreBoard.getPlayerScores());
 			let event = new GameOverEvent();
 			window.dispatchEvent(event);
 		}
 	}
-
-	
-
-
-
-
 }

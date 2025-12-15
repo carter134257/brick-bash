@@ -1,4 +1,4 @@
-export const BRICK_SIZE: number = 40;
+export const BRICK_SIZE: number = 30;
 
 export const BOARD_COLOR: string = "gold";
 

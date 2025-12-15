@@ -4,10 +4,10 @@ import { getCookie, setCookie } from "typescript-cookie";
 const MAX_SCORE_COOKIE: string = "max-score";
 
 export class ScoreBoard {
-  
+
 	private currentScore: number = 0;
 	private maxScore: number = 0;
-  
+
 	constructor(
 		private readonly ctx: CanvasRenderingContext2D,
 		private x: number,
@@ -32,13 +32,13 @@ export class ScoreBoard {
 
 		ctx.font = "30px Science Gothic";
 		ctx.textAlign = "center";
-		ctx.fillStyle = "gray";
+		ctx.fillStyle = "white";
 
 		ctx.fillText(currentScore.toLocaleString(), currentScoreX, currentScoreY);
 
 		ctx.font = "20px Science Gothic";
 		ctx.textAlign = "left";
-		ctx.fillStyle = "silver";
+		ctx.fillStyle = "white";
 
 		ctx.fillText(maxScore.toLocaleString(), x + 20, y + 25);
 
@@ -54,7 +54,6 @@ export class ScoreBoard {
 	}
 
 	private onScore(e: ScoreEvent) {
-		console.log("Score board listener", e.score);
 		this.currentScore += e.score.total();
 	}
 
@@ -63,4 +62,15 @@ export class ScoreBoard {
 			setCookie(MAX_SCORE_COOKIE, this.currentScore);
 		}
 	}
+
+	public getPlayerScores(): PlayerScores {
+		return new PlayerScores(this.currentScore, this.maxScore);
+	}
+}
+
+export class PlayerScores {
+	constructor(
+		public readonly score: number,
+		public readonly maxScore: number
+	) {}
 }

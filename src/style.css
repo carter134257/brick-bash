@@ -22,7 +22,17 @@ body {
 
 
 body {
-  background: linear-gradient(132deg,  #b2dc82,#789457,#275740,#1D3718,#6B6322,#BDA262, #ffd980);
+  background: linear-gradient(132deg, #d5ffa5,
+   #b2dc82,
+   #789457,
+   #275740,
+   #1D3718,
+   #6B6322,
+   #BDA262,
+   #ffd980,
+   #ffe5a8
+   );
+
   background-size: 200% 200%;
   animation: BackgroundGradient 10s ease infinite;
 }
