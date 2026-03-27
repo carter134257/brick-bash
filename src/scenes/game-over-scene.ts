@@ -84,6 +84,8 @@ export class GameOverScene {
 		}
 	}
 
+
+
 	public draw(): void {
 		this.letterSets.forEach((s) => {
 			s.draw();

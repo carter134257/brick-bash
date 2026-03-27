@@ -42,6 +42,8 @@ export class ScoreBoard {
 
 		ctx.fillText(maxScore.toLocaleString(), x + 20, y + 25);
 
+		
+
 		ctx.restore();
 	}
 
